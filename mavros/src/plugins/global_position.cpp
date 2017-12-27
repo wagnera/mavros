@@ -314,7 +314,6 @@ private:
 			// Current fix to ECEF
 			map.Forward(fix->latitude, fix->longitude, fix->altitude,
 						map_point.x(), map_point.y(), map_point.z());
-
 			// Set the current fix as the "map" origin if it's not set
 			if (!is_map_init) {
 				map_origin.x() = fix->latitude;
@@ -322,11 +321,17 @@ private:
 				map_origin.z() = fix->altitude;
 
 				ecef_origin = map_point; // Local position is zero
-				is_map_init = true;
+				if (map_origin.x() == 0) {
+					is_map_init = false;
+				}
+				else {
+					is_map_init = true;
+					ROS_INFO_STREAM("GP: Set Origin at: " << map_origin.x() << map_origin.y() << std::endl);
+				}
 			}
 		}
 		catch (const std::exception& e) {
-			ROS_INFO_STREAM("GP: Caught exception: " << e.what() << std::endl);
+			ROS_INFO_STREAM("GP: Caught exception: " << ecef_origin << std::endl);
 		}
 
 		// Compute the local coordinates in ECEF

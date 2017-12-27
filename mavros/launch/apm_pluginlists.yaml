@@ -1,16 +1,24 @@
 plugin_blacklist:
 # common
-- actuator_control
-- ftp
 - safety_area
-# extras
-- altitude
-- debug_value
-- image_pub
+- actuator_control
+- cam_imu_sync
+- ftp
+- hil_controls
 - mocap_pose_estimate
-- px4flow
+- vfr_hud
+- image_pub
 - vibration
-- 'vision_*'
-
-plugin_whitelist: []
-#- 'sys_*'
+- sys_time
+- vision_speed_estimate
+- vision_pose_estimate
+- setpoint_raw
+- setpoint_position
+- setpoint_accel
+- setpoint_attitude
+- px4flow
+- manual_control
+- waypoint
+  
+plugin_whitelist:
+- local_position
